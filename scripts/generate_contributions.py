@@ -377,7 +377,7 @@ def render_svg(start, end, counts, github_total, gitlab_total):
     # Leave room for the 256px-tall logo in the header.
     top = 390
     card_y = 294
-    logo_height = 256
+    logo_height = 44
     cell_step = CELL_SIZE + CELL_GAP
 
     grid_width = weeks * cell_step
@@ -427,21 +427,29 @@ def render_svg(start, end, counts, github_total, gitlab_total):
     logo_y = 20
 
     if logo_data:
-        logo_width, logo_height = get_logo_dimensions(LOGO_FILE, target_height=256)
+        logo_width, logo_height = get_logo_dimensions(
+            LOGO_FILE,
+            target_height=44
+        )
+
         logo_x = width - 24 - logo_width
+
         parts.append(
             f'<image x="{logo_x}" y="{logo_y}" '
             f'width="{logo_width}" height="{logo_height}" '
-            f'href="{logo_data}" preserveAspectRatio="xMidYMid meet"/>'
+            f'href="{logo_data}" '
+            f'preserveAspectRatio="xMidYMid meet"/>'
         )
     else:
         logo_size = 44
         logo_x = width - 24 - logo_size
+
         parts.append(
             f'<circle cx="{logo_x + logo_size / 2}" '
             f'cy="{logo_y + logo_size / 2}" '
             f'r="{logo_size / 2}" fill="#238636"/>'
         )
+
         parts.append(svg_text(
             logo_x + logo_size / 2,
             logo_y + 29,
