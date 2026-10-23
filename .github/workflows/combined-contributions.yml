@@ -1,0 +1,51 @@
+
+name: Update Combined Contributions
+
+on:
+  schedule:
+    - cron: "17 1 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/generate_contributions.py"
+      - ".github/workflows/combined-contributions.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: combined-contributions
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate combined SVG
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: python scripts/generate_contributions.py
+
+      - name: Commit updated SVG
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add contributions.svg
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update combined contribution graph [skip ci]"
+            git push
+          else
+            echo "Contribution graph has no changes."
+          fi

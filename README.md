@@ -4,6 +4,25 @@
 
 Software Engineering graduate from FPT University with a focus on building practical web applications, backend systems, and self-hosted deployment workflows.
 
+
+## 📊 Combined Contribution Activity
+
+<p align="center">
+  <img
+    src="https://raw.githubusercontent.com/vanct-official/vanct-official/main/contributions.svg"
+    alt="Combined GitHub and GitLab contribution activity"
+    width="100%"
+  />
+</p>
+
+<p align="center">
+  <sub>
+    Daily activity aggregated from GitHub and GitLab.
+    Automatically updated by GitHub Actions.
+  </sub>
+</p>
+
+
 ## About Me
 
 I work across frontend, backend, and infrastructure to deliver web applications that are reliable, maintainable, and easy to operate. My current focus is on full-stack development, application architecture, API design, and deployment workflows for Linux-based environments.
