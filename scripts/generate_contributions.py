@@ -373,10 +373,10 @@ def render_svg(start, end, counts, github_total, gitlab_total):
     total_calendar_days = (last_day - first_day).days + 1
     weeks = total_calendar_days // 7
 
+    # Layout
     left = 36
-    # Leave room for the 256px-tall logo in the header.
-    top = 390
-    card_y = 294
+    top = 192
+    card_y = 96
     logo_height = 44
     cell_step = CELL_SIZE + CELL_GAP
 
