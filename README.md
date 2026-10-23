@@ -10,7 +10,7 @@ Software Engineering graduate from FPT University with a focus on building pract
 <p align="center">
   <img
     src="https://raw.githubusercontent.com/vanct-official/vanct-official/main/contributions.svg"
-    alt="Combined GitHub and GitLab contribution activity"
+    alt="GitHub and GitLab contribution dashboard"
     width="100%"
   />
 </p>
