@@ -108,6 +108,11 @@ I work across **frontend, backend, and infrastructure** to deliver web applicati
 
 ### ☕ Coffee Shop Management System
 
+| Subject | SE Capstone Project - SEP490 |
+| :--- | :--- |
+| Grade | 7.8/10 (10 Credits) |
+| Teammate | • Chu Thế Văn <br>• Trần Văn Tuấn<br>• Đào Mạnh Hùng<br>• Phan Văn Khải<br>• Nguyễn Tân Tiến |
+
 > A full-stack coffee shop management application covering authentication, role-based access, order processing, and online payment integration.
 
 - 🛒 Built a web application for managing sales workflows and business operations
@@ -123,7 +128,14 @@ I work across **frontend, backend, and infrastructure** to deliver web applicati
 
 <br>
 
-### 👥 Recruitment Management System
+URL (Rebuild by me): [Click Here!](https://coffeeshop.vanct.id.vn)
+
+### 👥 Job Seeking Management System
+
+| Subject | Application Development Project - SWP391 |
+| :--- | :--- |
+| Grade | 8.0/10 (3 Credits) |
+| Teammate | • Chu Thế Văn <br>• Trần Văn Tuấn<br>• Ninh Hải Nam |
 
 > A recruitment management application for handling candidate profiles, CV uploads, and job applications.
 
@@ -138,7 +150,7 @@ I work across **frontend, backend, and infrastructure** to deliver web applicati
 
 <br>
 
-### 🏠 Self-Hosted Application Platform
+### 🏠 Self-Hosted Application Platform (Pet Project)
 
 > A personal infrastructure project for hosting web applications and APIs in a self-managed environment.
 
