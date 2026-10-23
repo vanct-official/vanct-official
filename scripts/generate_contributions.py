@@ -2,9 +2,11 @@
 import base64
 import json
 import os
+import io
 import urllib.error
 import urllib.parse
 import urllib.request
+from PIL import Image
 from collections import Counter
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -44,6 +46,13 @@ LEVEL_COLORS = [
 # ============================================================
 # HTTP helpers
 # ============================================================
+
+def get_logo_dimensions(logo_path: str, target_height: int = 256):
+    with Image.open(logo_path) as img:
+        original_width, original_height = img.size
+
+    target_width = round(original_width * target_height / original_height)
+    return target_width, target_height
 
 def request_json(url, headers=None, payload=None):
     request_headers = {
@@ -365,11 +374,18 @@ def render_svg(start, end, counts, github_total, gitlab_total):
     weeks = total_calendar_days // 7
 
     left = 36
-    top = 192
+    # Leave room for the 256px-tall logo in the header.
+    top = 390
+    card_y = 294
+    logo_height = 256
     cell_step = CELL_SIZE + CELL_GAP
 
     grid_width = weeks * cell_step
-    width = max(760, left + grid_width + 28)
+    logo_width = 0
+    if LOGO_FILE.is_file():
+        logo_width, _ = get_logo_dimensions(LOGO_FILE, logo_height)
+
+    width = max(760, left + grid_width + 28, logo_width + 48)
     height = top + 7 * cell_step + 76
 
     max_value = max(counts.values(), default=0)
@@ -408,17 +424,19 @@ def render_svg(start, end, counts, github_total, gitlab_total):
 
     # Optional personal logo at top-right.
     logo_data = load_logo_data_uri()
-    logo_size = 44
-    logo_x = width - 24 - logo_size
     logo_y = 20
 
     if logo_data:
+        logo_width, logo_height = get_logo_dimensions(LOGO_FILE, target_height=256)
+        logo_x = width - 24 - logo_width
         parts.append(
             f'<image x="{logo_x}" y="{logo_y}" '
-            f'width="{logo_size}" height="{logo_size}" '
+            f'width="{logo_width}" height="{logo_height}" '
             f'href="{logo_data}" preserveAspectRatio="xMidYMid meet"/>'
         )
     else:
+        logo_size = 44
+        logo_x = width - 24 - logo_size
         parts.append(
             f'<circle cx="{logo_x + logo_size / 2}" '
             f'cy="{logo_y + logo_size / 2}" '
@@ -430,9 +448,8 @@ def render_svg(start, end, counts, github_total, gitlab_total):
             "V", 24, "#ffffff", 700, "middle"
         ))
 
-    # Statistics cards
+    # Statistics cards (placed below the tall logo)
     card_gap = 12
-    card_y = 96
     card_h = 76
     card_count = 4
     card_width = (width - 48 - card_gap * (card_count - 1)) / card_count
@@ -459,7 +476,7 @@ def render_svg(start, end, counts, github_total, gitlab_total):
 
     # Calendar heading
     parts.append(svg_text(
-        24, 187, "DAILY ACTIVITY", 11, TEXT, 700
+        24, top - 5, "DAILY ACTIVITY", 11, TEXT, 700
     ))
 
     # Weekday labels
